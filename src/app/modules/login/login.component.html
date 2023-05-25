@@ -1,0 +1,29 @@
+
+
+
+          <div class="background">
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <form class="log-form" [formGroup]="LoginForm" (ngSubmit)="onSubmit()">
+            <h3>Login Here</h3>
+
+            <label for="username">Username</label>
+            <input type="text" placeholder="Your Name" id="username" formControlName="name">
+
+            <label for="username">User ID</label>
+            <input type="text" placeholder="Registered Email" id="username" formControlName="email">
+
+            <label for="password">Password</label>
+            <input type="password" placeholder="Password" id="password" formControlName="password">
+
+
+            <div class="social">
+              <div> LOG IN </div>
+            </div>
+        </form>
+
+
+
+
+
