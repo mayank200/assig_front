@@ -3,7 +3,7 @@
 width: 430px;
 height: 430px;
 position: absolute;
-transform: translate(-45%,20%);
+transform: translate(-45%,30%);
 left: 50%;
 top: 50%;
 }
@@ -35,7 +35,7 @@ height: 520px;
 width: 400px;
 background-color: rgba(255,255,255,0.13);
 position: absolute;
-transform: translate(-50%,8%);
+transform: translate(-50%,17%);
 top: 50%;
 left: 50%;
 border-radius: 10px;

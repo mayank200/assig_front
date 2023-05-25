@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 // import { ToastrService } from 'ngx-toastr';
@@ -16,28 +16,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LoginComponent implements OnInit {
   forgetPasswordModalOpen = false;
-  openEye = false;
   pass: string = 'password';
   pass_title: string = 'Show';
-  LoginForm!: UntypedFormGroup;
-  ForgotPasswordForm!: UntypedFormGroup;
+  LoginForm: FormGroup;
   loginFormSubmitted = false;
-  invalidUser = false;
   timeleft = 15;
-  counter: any;
-  loginerrormsg = 'Invalid username or password!. Please try again';
-  ForgotPasswordSubmit = false;
-  forgotPasswordError = false;
-  forgotPasswordMsg = '';
-  forgotPasswordSuccess = false;
-  forgotPasswordSuccessMsg = '';
   baseurl = '';
-  secretkey='CJ-jobsAuthenticKey!!'
-  conversionEncryptOutput: any;
-  encrypted: any;
-  anio: number = new Date().getFullYear();
+
+
   constructor(
-    @Inject(DOCUMENT) private document: Document,
     private toastr: ToastrService,
     private el: ElementRef,
     private formbuilder: UntypedFormBuilder,

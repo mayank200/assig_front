@@ -1,12 +1,50 @@
 
-<div class="addprod">
-  <div class="collapse collapse-horizontal" id="collapseWidthExample" >
-    <div class="card card-body" style="width: 25rem;">
-      This is some placeholder content for a horizontal collapse. It's hidden by default and shown when triggered.
+<div class="addprod" [ngStyle]="{'height': Height!=0 ? Height+'px' : '40rem'}">
+  <div class="collapse collapse-horizontal need" id="collapseWidthExample" >
+    <div class="card card-body need" style="width: 25rem; overflow-x: hidden;">
+      <div class="header" style="height:5rem; width:100%">
+        <h3>Create Product</h3>
+      </div>
+     
+      <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form class="log-form" [formGroup]="ProductForm">
+        
+
+        <label for="username">Product Name</label>
+        <input type="hidden" id="id" formControlName="id">
+        <input type="text" placeholder="Product Name" id="username" formControlName="name">
+
+        <label for="category">Category</label>
+        <input type="text" placeholder="Category" id="category" formControlName="category">
+
+        <label for="cost">Amount</label>
+        <input type="text" placeholder="cost" id="cost" formControlName="cost">
+
+        <label for="description">Description</label>
+        <textarea type="text" placeholder="description" id="description" formControlName="description"></textarea>
+     
+
+
+        <div class="social" (click)="onSubmit()">
+          <div> Create </div>
+        </div>
+    </form>
+
     </div>
   </div>
 </div>
 
 
-<button class="button-86" role="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample"
- aria-expanded="false" aria-controls="collapseWidthExample" (click)="addproducts()"></button>
+<div class="blob-effect" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample"
+aria-expanded="false" aria-controls="collapseWidthExample" (click)="addproducts()">
+  <span></span>
+  <span></span>
+  <span></span>
+  {{nav_text}}
+  </div>
+<!-- 
+<button  id="action" class="button-86" role="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample"
+ aria-expanded="false" aria-controls="collapseWidthExample"></button> -->
