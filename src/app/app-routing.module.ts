@@ -13,7 +13,14 @@ const routes: Routes = [
     pathMatch: 'full',
     loadChildren: () =>
       import('./modules/login/login.module').then((m) => m.LoginModule),
+  },
+  {
+    path: 'products',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('./modules/products/products.module').then((m) => m.ProductsModule),
   }
+
 
    /*{
     path: 'password',

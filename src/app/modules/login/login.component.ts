@@ -8,6 +8,7 @@ import jwt_decode from 'jwt-decode';
 import { DOCUMENT } from '@angular/common';
 import * as CryptoJS from 'crypto-js';
 import {Md5} from 'ts-md5/dist/md5';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -37,7 +38,7 @@ export class LoginComponent implements OnInit {
   anio: number = new Date().getFullYear();
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    // private toastr: ToastrService,
+    private toastr: ToastrService,
     private el: ElementRef,
     private formbuilder: UntypedFormBuilder,
     private loginService: LoginService,
@@ -50,16 +51,14 @@ export class LoginComponent implements OnInit {
 
       localStorage.clear();
 
-
-
     this.LoginForm = this.formbuilder.group({
-      email: ['',[Validators.required]],
-      password: ['', [Validators.required]],
-      name: ['',[Validators.required]],
+      email: ['assignment@test.com',[Validators.required]],
+      password: ['123456', [Validators.required]],
+      name: ['mayank',[Validators.required]],
     });
   }
 
-  get LoginFormControl() {
+  get f() {
     return this.LoginForm.controls;
   }
 
@@ -73,72 +72,54 @@ export class LoginComponent implements OnInit {
     }
   }
 
-
-
-
-
-
-
-
-
   onSubmit() {
 
     this.loginFormSubmitted = true;
-    const md5 = new Md5();
-    let password_enc = Md5.hashStr(this.LoginForm.value['password']);
+
 
     let data = {
-      captcha: '',
-      email: this.LoginForm.value['email'],
-      // password: this.encrypt(this.LoginForm.value['password']),
-      password:password_enc,
-      recaptcha_value: 'NO',
+      email: this.f.email.value,
+      password:this.f.password.value,
+      name: this.f.name.value,
     };
 
     // return;
     this.timeleft = 15;
 
     if (this.LoginForm.valid) {
-      this.loginService.user_login(data).subscribe((resData: any) => {
-        // console.log(resData)
-        if (resData.status!=='False') {
-          localStorage.setItem('login', '1');
-          localStorage.setItem('activeUser', JSON.stringify(resData));
-          let localStorageData = localStorage.getItem('activeUser');
-          if (localStorageData != null) {
-            let localStorageObject = JSON.parse(localStorageData);
-            let token = localStorageObject.token;
 
-            let decodedTokenData = jwt_decode(token);
+      this.router.navigate(['/products']);
 
-            let decodedTokenDataString = JSON.stringify(decodedTokenData);
+      // this.loginService.user_login(data).subscribe((resData: any) => {
+      //   if (resData.status!=='False') {
+      //     localStorage.setItem('login', '1');
+      //     localStorage.setItem('activeUser', JSON.stringify(resData));
+      //     let localStorageData = localStorage.getItem('activeUser');
+      //     if (localStorageData != null) {
+      //       let localStorageObject = JSON.parse(localStorageData);
+      //       let token = localStorageObject.token;
 
-            let password_change = JSON.parse(
-              decodedTokenDataString
-            ).is_passwordchange;
+      //       let decodedTokenData = jwt_decode(token);
 
-            // if (password_change == 'N') {
-            //   this.router.navigate(['/change-password']);
-            // } else {
+      //       let decodedTokenDataString = JSON.stringify(decodedTokenData);
 
-              localStorage.setItem('activeHeader', 'TP');
-              this.router.navigate(['/dashboard']);
-            // }
-          }
-        } else {
-          this.invalidUser = true;
-          this.loginerrormsg = resData.msg;
-          var downloadTimer = setInterval(() => {
-            this.counter = this.timeleft - 10;
+      //     }
+      //   } else {
+      //     this.invalidUser = true;
+      //     this.loginerrormsg = resData.msg;
+      //     var downloadTimer = setInterval(() => {
+      //       this.counter = this.timeleft - 10;
 
-            this.timeleft -= 1;
-            if (this.counter === 0) {
-              this.invalidUser = false;
-              clearInterval(downloadTimer);
-            }
-          }, 1000);
-        }
-      });
+      //       this.timeleft -= 1;
+      //       if (this.counter === 0) {
+      //         this.invalidUser = false;
+      //         clearInterval(downloadTimer);
+      //       }
+      //     }, 1000);
+      //   }
+      // });
+    } else {
+      this.toastr.error('All Fields are Mandatory.','Oops!')
     }
   }
 
