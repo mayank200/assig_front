@@ -5,13 +5,13 @@
       <div class="header" style="height:5rem; width:100%">
         <h3>Create Product</h3>
       </div>
-     
+
       <div class="background">
         <div class="shape"></div>
         <div class="shape"></div>
     </div>
     <form class="log-form" [formGroup]="ProductForm">
-        
+
 
         <label for="username">Product Name</label>
         <input type="hidden" id="id" formControlName="id">
@@ -25,7 +25,7 @@
 
         <label for="description">Description</label>
         <textarea type="text" placeholder="description" id="description" formControlName="description"></textarea>
-     
+
 
 
         <div class="social" (click)="onSubmit()">
@@ -45,6 +45,23 @@ aria-expanded="false" aria-controls="collapseWidthExample" (click)="addproducts(
   <span></span>
   {{nav_text}}
   </div>
-<!-- 
-<button  id="action" class="button-86" role="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample"
- aria-expanded="false" aria-controls="collapseWidthExample"></button> -->
+
+
+<ng-container *ngFor="let cd of dataarray; let i = index">
+  <div class="card-container">
+    <div class="card">
+      <a>
+        <div class="card--display"><i class="material-icons">{{cd.name}}</i>
+          <h2>Hot Tub Time Machine</h2>
+        </div>
+
+        <div class="card--hover">
+          <h2>Hot Tub Time Machine</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam at est orci. Nam molestie pellentesque mi nec lacinia. Cras volutpat arcu sit amet elit sodales, nec volutpat velit bibendum.</p>
+          <p class="link">Click to see project</p>
+        </div></a>
+      <div class="card--border"></div>
+    </div>
+  </div>
+
+</ng-container>
