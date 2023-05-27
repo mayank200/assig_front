@@ -5,4 +5,4 @@ import { environment } from '../../environments/environment';
 export const service_baseurl: string = environment.nodeApiUrlLatest;
 
 
-export const get_dashboard_data_url: string = service_baseurl + "get_dashboard_data";
+export const login_url: string = service_baseurl + "login";

@@ -25,12 +25,16 @@ dataarray:any=[];
   ngOnInit(): void {
 
     this.ProductForm = this.formbuilder.group({
-      name:['',[Validators.required]],
-      category:['',[Validators.required]], 
-      cost:['',[Validators.required]], 
-      description:['',[Validators.required]],
-      id:['1',[Validators.required]]
+      name:['mayank',[Validators.required]],
+      category:['new',[Validators.required]], 
+      cost:['2000',[Validators.required]], 
+      description:['akbdkadkadjhalkdbajdlabdkdkabkdajdak',[Validators.required]],
+      id:['']
     });
+  }
+
+  get f(){
+    return this.ProductForm.controls;
   }
 
   addproducts(){
@@ -42,9 +46,45 @@ dataarray:any=[];
   onSubmit(){
 
     if(this.ProductForm.valid){
-this.dataarray.push(this.ProductForm.value)
+      if(this.f.id.value != ''){
+
+        this.dataarray[this.f.id.value-1] = this.ProductForm.value;
+      } else {
+
+       let id= this.dataarray.length +1;
+       let data = this.ProductForm.value;
+       data['id'] = id
+      this.dataarray.push(data)
+
+      }
     }
-    console.log(this.dataarray)
+    console.log(this.ProductForm.valid,this.dataarray)
+  }
+
+  closecard(data){
+let tempdata = []
+    this.dataarray.map(el=>{
+if(el.id != data.id){
+  tempdata.push(el)
+}
+    });
+
+    this.dataarray = tempdata;
+
+  }
+
+  editCard(data){
+
+    this.ProductForm.patchValue({
+      id:data.id,
+      name:data.name,
+      category:data.category, 
+      cost:data.cost, 
+      description:data.description,
+    });
+
+    document.getElementById('openedit').click();
+
   }
 
   ngAfterViewInit(){
@@ -52,10 +92,17 @@ this.dataarray.push(this.ProductForm.value)
     setInterval(()=>{
       const classCheck = document.getElementById('collapseWidthExample');
       this.Height = window.innerHeight;  
-     if(classCheck.classList.contains('show')){
+     if(classCheck.classList.contains('show') && this.nav_text != 'CLOSE'){
       this.nav_text = 'CLOSE';
-     } else {
+     } else if(!classCheck.classList.contains('show') && this.nav_text != 'CREATE') {
       this.nav_text = 'CREATE';
+      this.ProductForm.patchValue({
+        id:'',
+        name:'',
+        category:'', 
+        cost:'', 
+        description:'',
+      })
      }
 
     },1000)

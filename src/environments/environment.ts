@@ -4,6 +4,5 @@
 
 export const environment = {
   production: false,
- // nodeApiUrlLatest: 'https://hubcentral2dev.azurewebsites.net/api/',
   nodeApiUrlLatest: 'http://localhost:3000/api/'
 };

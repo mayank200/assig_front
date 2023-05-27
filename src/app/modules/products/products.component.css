@@ -1,6 +1,6 @@
 .addprod{
 height: 100rem;
-width: 25rem;
+width: 100%;
 position: absolute;
 top: 0;
 }
@@ -8,17 +8,46 @@ top: 0;
 
 .addprod .need{
 height: 100%;
-position: absolute;
+position: relative;
 z-index: 1;
+backdrop-filter: blur(2rem);
 }
 
 .card-body{
   background-color: rgba(255, 255, 255, 0.11);
-  backdrop-filter: blur(16rem);
+  backdrop-filter: blur(4rem);
   border: 2px solid #ffffff47;
 }
 
+.text {
+    position: absolute;
+    bottom: 0;
+    right: 1rem;
+    color: yellow;
+    font-weight: 500;
+    letter-spacing: 0.15rem;
+    font-size: 0.6rem;
+}
 
+.close{
+  position: absolute;
+  top: 0rem;
+  right: 0rem;
+  width: 3rem;
+  height: 3rem;
+  background: #ffffff54;
+  margin: 0.2rem;
+  border-radius: 15% 10% 15% 118%;
+  cursor: pointer;
+}
+
+.close-icon{
+  font-size: 1.2rem;
+  position: absolute;
+  top: 0.6rem;
+  right: 0.8rem;
+  color: #ffffff;
+}
 
 @keyframes rotate-blob {
   0%
@@ -265,20 +294,21 @@ body {
 body * {
   box-sizing: border-box;
 }
-.card-container {
-  flex: 300px;
-  margin: 30px;
+/* .card-container {
+
+  margin: 3rem;
   width: 20rem;
   height: 20rem;
   display: inline-block;
-}
+} */
 .card-container .card {
   font-weight: bold;
   position: relative;
-  width: 100%;
-
-  background: #c1c1c169;
-  padding: 0.1;
+  width: 70%;
+  float: right;
+  background: #c1c1c11c;
+  margin-right: 10%;
+  border: 0.2rem solid #85a8c6bd;
 }
 .card-container .card a {
   padding: 30px;
@@ -304,11 +334,13 @@ body * {
   display: block;
 }
 .card-container .card a .card--display i {
-  font-size: 60px;
+  font-size: 1rem;
   margin-top: 200px;
+  color: white;
 }
-.card-container .card a .card--display h2 {
+.card-container .card a .card--display h3 {
   margin: 20px 0 0;
+  color: #83f1c3;
 }
 .card-container .card a .card--hover {
   display: none;
@@ -319,12 +351,10 @@ body * {
 .card-container .card a .card--hover p {
   font-weight: normal;
   line-height: 1.5;
+  color: white;
+  font-weight: 600;
 }
-.card-container .card a .card--hover p.link {
-  margin: 20px 0 0;
-  font-weight: bold;
-  color: #5bc0eb;
-}
+
 .card-container .card .card--border {
   position: absolute;
   width: 100%;
@@ -334,11 +364,5 @@ body * {
   border: 2px dashed black;
   z-index: -1;
 }
-.card-container .card.card--dark a {
-  color: white;
-  background-color: black;
-  border-color: rgb(0, 0, 0);
-}
-.card-container .card.card--dark a .card--hover .link {
-  color: #fde74c;
-}
+
+

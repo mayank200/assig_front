@@ -13,15 +13,13 @@ export class LoginService {
     private http:HttpClient
     ) { }
 
-  // private user_login_url: string =constants.user_login_url;
+  private login_url: string =constants.login_url;
   // private resetPassword_url: string =constants.resetPassword_url;
 
-  // user_login(userData:any){
-  //   return this._CallApiService.post(userData,this.user_login_url);
+  login(userData:any){
+    return this._CallApiService.post(userData,this.login_url);
 
-  //     // return this.http.post(this.user_login_url,userData)
-
-  // }
+  }
   // resetPassword(userData:any){
   //   return this._CallApiService.post(userData,this.resetPassword_url);
   // }

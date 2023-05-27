@@ -11,7 +11,7 @@ export class httpInterceptor implements HttpInterceptor {
         var loadingContainer1: HTMLElement = document.getElementsByClassName('main').item(0) as HTMLElement;
         var loadingContainer: HTMLElement = document.getElementsByClassName('loader').item(0) as HTMLElement;
         var routerMain:HTMLElement = document.getElementById('router-main') as HTMLElement;
-        loadingContainer1.style.display = 'block';
+        loadingContainer1.style.display = 'inline-grid';
         loadingContainer.style.display = 'block';
         routerMain.classList.add('no-click');
         if (routerMain != null) {

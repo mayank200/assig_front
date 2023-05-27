@@ -16,20 +16,12 @@ const routes: Routes = [
   },
   {
     path: 'products',
+    canActivate: [AuthGuard],
     pathMatch: 'full',
     loadChildren: () =>
       import('./modules/products/products.module').then((m) => m.ProductsModule),
   }
 
-
-   /*{
-    path: 'password',
-    canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./modules/reset-password/reset-password.module').then(
-        (m) => m.ResetPasswordModule
-      ),
-  }*/
 
 ];
 

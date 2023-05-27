@@ -65,8 +65,8 @@ export class LoginComponent implements OnInit {
 
 
     let data = {
-      email: this.f.email.value,
-      password:this.f.password.value,
+      id: this.f.email.value,
+      pass:this.f.password.value,
       name: this.f.name.value,
     };
 
@@ -75,36 +75,26 @@ export class LoginComponent implements OnInit {
 
     if (this.LoginForm.valid) {
 
-      this.router.navigate(['/products']);
+      this.loginService.login(data).subscribe((resData: any) => {
+        if (resData.status) {
+          localStorage.setItem('login', '1');
+          localStorage.setItem('activeUser', JSON.stringify(resData));
+          let localStorageData = localStorage.getItem('activeUser');
+          if (localStorageData != null) {
+            let localStorageObject = JSON.parse(localStorageData);
+            let token = localStorageObject.token;
 
-      // this.loginService.user_login(data).subscribe((resData: any) => {
-      //   if (resData.status!=='False') {
-      //     localStorage.setItem('login', '1');
-      //     localStorage.setItem('activeUser', JSON.stringify(resData));
-      //     let localStorageData = localStorage.getItem('activeUser');
-      //     if (localStorageData != null) {
-      //       let localStorageObject = JSON.parse(localStorageData);
-      //       let token = localStorageObject.token;
+            let decodedTokenData = jwt_decode(token);
 
-      //       let decodedTokenData = jwt_decode(token);
+            let decodedTokenDataString = JSON.stringify(decodedTokenData);
 
-      //       let decodedTokenDataString = JSON.stringify(decodedTokenData);
+          }
 
-      //     }
-      //   } else {
-      //     this.invalidUser = true;
-      //     this.loginerrormsg = resData.msg;
-      //     var downloadTimer = setInterval(() => {
-      //       this.counter = this.timeleft - 10;
-
-      //       this.timeleft -= 1;
-      //       if (this.counter === 0) {
-      //         this.invalidUser = false;
-      //         clearInterval(downloadTimer);
-      //       }
-      //     }, 1000);
-      //   }
-      // });
+          this.router.navigate(['/products']);
+        } else {
+          this.toastr.error('User Id Or Password Does not Match. Please refer to readme on git for details.','Oops!')
+        }
+      });
     } else {
       this.toastr.error('All Fields are Mandatory.','Oops!')
     }
