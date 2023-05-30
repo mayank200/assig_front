@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "hubcentral": {
+    "assig-front": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -26,7 +26,7 @@
               "ts-md5/dist/md5",
               "pdfjs-dist/web/pdf_viewer"
             ],
-            "outputPath": "dist/hubcentral",
+            "outputPath": "docs",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",

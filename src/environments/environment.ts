@@ -4,5 +4,6 @@
 
 export const environment = {
   production: false,
-  nodeApiUrlLatest: 'http://localhost:3000/api/'
+  // nodeApiUrlLatest: 'http://localhost:3000/api/'
+  nodeApiUrlLatest: 'https://assig-api-node.azurewebsites.net/api/'
 };
