@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ProductsService } from './products.service';
 import { SessionService } from 'src/shared/services/session.service';
+import { LoginComponent } from '../login/login.component';
+import { LoginService } from '../login/login.service';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-products',
@@ -24,24 +27,46 @@ user:any = ''
     private formbuilder: FormBuilder,
     private router: Router,
     public _ProductsService: ProductsService,
-    public _SessionService:SessionService
+    public _SessionService:SessionService,
+    public _loginService:LoginService
   ) { }
 
   ngOnInit(): void {
 
-    let data = this._SessionService.get_user_token();
-    this.user = data.name;
+    this._loginService.login({"id":"assignment@test.com","pass":"123456","name":"user"}).subscribe((resData: any) => {
+      if (resData.status) {
+        localStorage.setItem('login', '1');
+        localStorage.setItem('activeUser', JSON.stringify(resData));
+        let localStorageData = localStorage.getItem('activeUser');
+        if (localStorageData != null) {
+          let localStorageObject = JSON.parse(localStorageData);
+          let token = localStorageObject.token;
+
+          let decodedTokenData = jwt_decode(token);
+
+          let decodedTokenDataString = JSON.stringify(decodedTokenData);
+
+          let data = this._SessionService.get_user_token();
+          this.user = data.name;
+
+          this.getProducts();
+        }
+      }
+    });
+
+
+
 
 
     this.ProductForm = this.formbuilder.group({
       name:['',[Validators.required]],
-      category:['',[Validators.required]], 
-      cost:['',[Validators.required]], 
+      category:['',[Validators.required]],
+      cost:['',[Validators.required]],
       description:['',[Validators.required]],
       id:['']
     });
 
-    this.getProducts();
+
   }
 
   get f(){
@@ -57,7 +82,7 @@ user:any = ''
   getProducts(){
 
     this._ProductsService.crud_operation({'action':'getall'}).subscribe((resData:any)=>{
-    
+
       if(resData.status){
         this.dataarray = resData.data
       } else {
@@ -82,7 +107,7 @@ user:any = ''
         }
 
         this._ProductsService.crud_operation(list).subscribe((resData:any)=>{
-    
+
           if(resData.status){
             this.toastr.success('Product Successfully updated.','Oops!')
             this.getProducts();
@@ -92,7 +117,7 @@ user:any = ''
             this.toastr.error('Something Went Wrong.Please Try again.','Oops!')
           }
         })
-        
+
       } else {
 
         let list={
@@ -104,13 +129,13 @@ user:any = ''
         }
 
         this._ProductsService.crud_operation(list).subscribe((resData:any)=>{
-    
+
           if(resData.status){
             this.toastr.success('Product Successfully Created.','Oops!')
             this.getProducts();
             this.ProductForm.reset();
           } else {
-           
+
             this.toastr.error('Something Went Wrong.Please Try again.','Oops!')
           }
         })
@@ -123,7 +148,7 @@ user:any = ''
   closecard(data){
 
     this._ProductsService.crud_operation({'action':'delete','id':data.id.toString()}).subscribe((resData:any)=>{
-    
+
       if(resData.status){
         this.toastr.success('Product Successfully Removed.','Oops!')
         this.getProducts();
@@ -140,8 +165,8 @@ user:any = ''
     this.ProductForm.patchValue({
       id:data.id,
       name:data.name,
-      category:data.category, 
-      cost:data.cost, 
+      category:data.category,
+      cost:data.cost,
       description:data.description,
     });
 
@@ -153,7 +178,7 @@ user:any = ''
 
     setInterval(()=>{
       const classCheck = document.getElementById('collapseWidthExample');
-      this.Height = window.innerHeight;  
+      this.Height = window.innerHeight;
      if(classCheck.classList.contains('show') && this.nav_text != 'CLOSE'){
       this.nav_text = 'CLOSE';
      } else if(!classCheck.classList.contains('show') && this.nav_text != 'CREATE') {
@@ -161,8 +186,8 @@ user:any = ''
       this.ProductForm.patchValue({
         id:'',
         name:'',
-        category:'', 
-        cost:'', 
+        category:'',
+        cost:'',
         description:'',
       })
      }

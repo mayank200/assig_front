@@ -1,6 +1,40 @@
 "use strict";
 (self["webpackChunkassig_front"] = self["webpackChunkassig_front"] || []).push([["common"],{
 
+/***/ 6519:
+/*!************************************************!*\
+  !*** ./src/app/modules/login/login.service.ts ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "LoginService": () => (/* binding */ LoginService)
+/* harmony export */ });
+/* harmony import */ var _shared_helpers_constants__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../shared/helpers/constants */ 2545);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 4650);
+/* harmony import */ var _shared_services_call_api_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../shared/services/call-api.service */ 1022);
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ 529);
+
+
+
+
+class LoginService {
+    constructor(_CallApiService, http) {
+        this._CallApiService = _CallApiService;
+        this.http = http;
+        this.login_url = _shared_helpers_constants__WEBPACK_IMPORTED_MODULE_0__.login_url;
+    }
+    login(userData) {
+        return this._CallApiService.post(userData, this.login_url);
+    }
+}
+LoginService.ɵfac = function LoginService_Factory(t) { return new (t || LoginService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_shared_services_call_api_service__WEBPACK_IMPORTED_MODULE_1__.CallApiService), _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__.HttpClient)); };
+LoginService.ɵprov = /*@__PURE__*/ _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({ token: LoginService, factory: LoginService.ɵfac, providedIn: 'root' });
+
+
+/***/ }),
+
 /***/ 2545:
 /*!*****************************************!*\
   !*** ./src/shared/helpers/constants.ts ***!
