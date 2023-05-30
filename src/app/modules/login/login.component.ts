@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
 
           }
 
-          this.router.navigate(['/products']);
+          this.router.navigate(['/#/products']);
         } else {
           this.toastr.error('User Id Or Password Does not Match. Please refer to readme on git for details.','Oops!')
         }
