@@ -13,7 +13,6 @@ const routes: Routes = [
   },
   {
     path: 'products',
-    canActivate: [AuthGuard],
     pathMatch: 'full',
     loadChildren: () =>
       import('./modules/products/products.module').then((m) => m.ProductsModule),
