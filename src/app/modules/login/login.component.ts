@@ -89,8 +89,7 @@ export class LoginComponent implements OnInit {
             let decodedTokenDataString = JSON.stringify(decodedTokenData);
 
           }
-
-          this.router.navigate(['/#/products']);
+          this.router.navigateByUrl('/products');
         } else {
           this.toastr.error('User Id Or Password Does not Match. Please refer to readme on git for details.','Oops!')
         }
