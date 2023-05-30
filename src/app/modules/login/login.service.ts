@@ -14,13 +14,10 @@ export class LoginService {
     ) { }
 
   private login_url: string =constants.login_url;
-  // private resetPassword_url: string =constants.resetPassword_url;
-
+ 
   login(userData:any){
     return this._CallApiService.post(userData,this.login_url);
 
   }
-  // resetPassword(userData:any){
-  //   return this._CallApiService.post(userData,this.resetPassword_url);
-  // }
+ 
 }

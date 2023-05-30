@@ -30,8 +30,8 @@ export class httpInterceptor implements HttpInterceptor {
 
         req = req.clone({ headers: req.headers.set('Accept', 'application/json') });
         return next.handle(req).pipe(
-            //delay(500),
-            // retry(2),
+            delay(1000),
+            retry(2),
             finalize(() => {
                 loadingContainer1.style.display = 'none';
                 loadingContainer.style.display = 'none';

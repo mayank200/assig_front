@@ -1,4 +1,24 @@
 
+<div>
+<div class="blob-effect-1" id="openedit" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample"
+aria-expanded="false" aria-controls="collapseWidthExample" (click)="addproducts()">
+  <span></span>
+  <span></span>
+  <span></span>
+  {{nav_text}}
+  </div>
+
+  <p class="user">
+    Welcome, {{user}}
+  </p>
+  <div class="blob-effect-2" (click)="logout()">
+  <span></span>
+  <span></span>
+  <span></span>
+  Logout
+  </div>
+</div>
+
 <div class="addprod" [ngStyle]="{'height': Height!=0 ? Height+'px' : '40rem'}">
   <div class="collapse collapse-horizontal need" id="collapseWidthExample" >
     <div class="card card-body need" style="width: 25rem; overflow-x: hidden;">
@@ -38,13 +58,7 @@
 </div>
 
 
-<div class="blob-effect" id="openedit" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample"
-aria-expanded="false" aria-controls="collapseWidthExample" (click)="addproducts()">
-  <span></span>
-  <span></span>
-  <span></span>
-  {{nav_text}}
-  </div>
+
 
 
   <div class="row">
@@ -54,23 +68,23 @@ aria-expanded="false" aria-controls="collapseWidthExample" (click)="addproducts(
 <ng-container *ngFor="let cd of dataarray; let i = index">
   <div class="card-container col-3">
     <div class="card">
-      <a (click)="editCard(cd)">
+      <a>
         <div class="close" (click)="closecard(cd)">
           <i class="fa fa-times close-icon"></i>
         </div>
         
-        <div class="card--display"><i class="material-icons">{{cd.category}}</i>
+        <div class="card--display" (click)="editCard(cd)" style="cursor: pointer;"><i class="material-icons">{{cd.category}}</i>
           <h3>{{cd.name}}</h3>
         </div>
 
-        <div class="card--hover">
+        <div class="card--hover" (click)="editCard(cd)" style="cursor: pointer;">
           <h3 style="color: #1cffd9; margin-bottom: 1rem; text-decoration: underline;">{{cd.name}}</h3>
           <p>{{cd.description}}</p>
           <p class="link">{{cd.cost | currency}}</p>
           
         </div>
       
-        <p class="text">*Click to edit this Card</p>
+        <p class="text">*Click on text to edit</p>
       </a>
       <div class="card--border"></div>
     </div>

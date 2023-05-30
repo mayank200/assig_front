@@ -2,6 +2,8 @@ import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ProductsService } from './products.service';
+import { SessionService } from 'src/shared/services/session.service';
 
 @Component({
   selector: 'app-products',
@@ -14,23 +16,32 @@ ProductForm: FormGroup;
 nav_text:any = 'CREATE';
 Height: number=0;
 dataarray:any=[];
+user:any = ''
 
   constructor(
     private toastr: ToastrService,
     private el: ElementRef,
     private formbuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    public _ProductsService: ProductsService,
+    public _SessionService:SessionService
   ) { }
 
   ngOnInit(): void {
 
+    let data = this._SessionService.get_user_token();
+    this.user = data.name;
+
+
     this.ProductForm = this.formbuilder.group({
-      name:['mayank',[Validators.required]],
-      category:['new',[Validators.required]], 
-      cost:['2000',[Validators.required]], 
-      description:['akbdkadkadjhalkdbajdlabdkdkabkdajdak',[Validators.required]],
+      name:['',[Validators.required]],
+      category:['',[Validators.required]], 
+      cost:['',[Validators.required]], 
+      description:['',[Validators.required]],
       id:['']
     });
+
+    this.getProducts();
   }
 
   get f(){
@@ -43,18 +54,66 @@ dataarray:any=[];
   //  document.getElementById('action').click();
   }
 
+  getProducts(){
+
+    this._ProductsService.crud_operation({'action':'getall'}).subscribe((resData:any)=>{
+    
+      if(resData.status){
+        this.dataarray = resData.data
+      } else {
+        this.dataarray =[];
+        this.toastr.error('No Products Are Available.Please Add Product and try again','Oops!')
+      }
+    })
+  }
+
   onSubmit(){
 
     if(this.ProductForm.valid){
       if(this.f.id.value != ''){
 
-        this.dataarray[this.f.id.value-1] = this.ProductForm.value;
+        let list={
+          'action':'update',
+          'id': this.f.id.value.toString(),
+          'name': this.f.name.value.toString(),
+          'category': this.f.category.value.toString(),
+          'cost': this.f.cost.value.toString(),
+          'description': this.f.description.value.toString()
+        }
+
+        this._ProductsService.crud_operation(list).subscribe((resData:any)=>{
+    
+          if(resData.status){
+            this.toastr.success('Product Successfully updated.','Oops!')
+            this.getProducts();
+            this.ProductForm.reset();
+            document.getElementById('openedit').click();
+          } else {
+            this.toastr.error('Something Went Wrong.Please Try again.','Oops!')
+          }
+        })
+        
       } else {
 
-       let id= this.dataarray.length +1;
-       let data = this.ProductForm.value;
-       data['id'] = id
-      this.dataarray.push(data)
+        let list={
+          'action':'create',
+          'name': this.f.name.value.toString(),
+          'category': this.f.category.value.toString(),
+          'cost': this.f.cost.value.toString(),
+          'description': this.f.description.value.toString()
+        }
+
+        this._ProductsService.crud_operation(list).subscribe((resData:any)=>{
+    
+          if(resData.status){
+            this.toastr.success('Product Successfully Created.','Oops!')
+            this.getProducts();
+            this.ProductForm.reset();
+          } else {
+           
+            this.toastr.error('Something Went Wrong.Please Try again.','Oops!')
+          }
+        })
 
       }
     }
@@ -62,14 +121,17 @@ dataarray:any=[];
   }
 
   closecard(data){
-let tempdata = []
-    this.dataarray.map(el=>{
-if(el.id != data.id){
-  tempdata.push(el)
-}
-    });
 
-    this.dataarray = tempdata;
+    this._ProductsService.crud_operation({'action':'delete','id':data.id.toString()}).subscribe((resData:any)=>{
+    
+      if(resData.status){
+        this.toastr.success('Product Successfully Removed.','Oops!')
+        this.getProducts();
+        this.ProductForm.reset();
+      } else {
+        this.toastr.error('Something Went Wrong.Please Try again.','Oops!')
+      }
+    })
 
   }
 
@@ -108,4 +170,10 @@ if(el.id != data.id){
     },1000)
   }
 
+  logout(){
+    if(confirm('Do you want to log out?')){
+      localStorage.clear();
+      this.router.navigate(['/login']);
+    }
+  }
 }

@@ -38,7 +38,6 @@ export class SessionService {
     const session_obj:any = JSON.parse(localStorage.getItem('activeUser'));
     if(required_item == ''){
       const tokenPayload_d: any = decode(session_obj.token);
-      tokenPayload_d['profiles'] = JSON.parse(tokenPayload_d.profiles)
       return tokenPayload_d;
     }
   }

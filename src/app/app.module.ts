@@ -35,7 +35,7 @@ import { BnNgIdleService } from 'bn-ng-idle';
       autoDismiss:true,
       progressBar:true,
       timeOut:3000,
-      positionClass:'toast-top-left'
+      positionClass:'toast-top-right'
     })
 
   ],
