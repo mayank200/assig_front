@@ -84,10 +84,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "hubcentral:build:production"
+              "browserTarget": "asignment:build:production"
             },
             "development": {
-              "browserTarget": "hubcentral:build:development"
+              "browserTarget": "asignment:build"
             }
           },
           "defaultConfiguration": "development"
@@ -95,7 +95,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "hubcentral:build"
+            "browserTarget": "asignment:build"
           }
         },
         "test": {
